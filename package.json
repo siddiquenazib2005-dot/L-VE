@@ -1,6 +1,7 @@
 {
   "name": "love-ai",
-  "version": "2.0.0",
+  "version": "3.0.0",
+  "description": "LOVE AI — Production-ready intelligent assistant backend",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
