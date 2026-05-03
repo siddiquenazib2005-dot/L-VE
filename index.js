@@ -5,8 +5,11 @@ const cors    = require("cors");
 const path    = require("path");
 const fs      = require("fs");
 
-if (!process.env.API_KEY) {
-  console.error("FATAL: API_KEY not set. Render -> Environment -> Add API_KEY");
+// Accept both GROK_API_KEY and API_KEY
+const API_KEY = process.env.GROK_API_KEY || process.env.API_KEY || "";
+
+if (!API_KEY) {
+  console.error("FATAL: API key not set. Add GROK_API_KEY or API_KEY in Render -> Environment.");
   process.exit(1);
 }
 
@@ -58,7 +61,7 @@ async function callAI(messages) {
     { model: MODEL, messages: messages, temperature: 0.7, max_tokens: 1024 },
     {
       headers: {
-        "Authorization": "Bearer " + process.env.API_KEY,
+        "Authorization": "Bearer " + API_KEY,
         "Content-Type":  "application/json"
       },
       timeout: 30000
@@ -131,4 +134,3 @@ if (RENDER_URL) {
 app.listen(PORT, function() {
   console.log("LOVE AI running on port " + PORT);
 });
-                                                                                                     
